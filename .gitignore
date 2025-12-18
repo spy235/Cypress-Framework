@@ -1,3 +1,17 @@
-results/
-screenshots/
+# Cypress generated folders
+cypress/reports/
+cypress/screenshots/
+cypress/videos/
+
+# Custom logs folder
 logs/
+
+# Temporary / results folder
+.results/
+
+# Node modules
+node_modules/
+
+# Optional: IDE/editor files
+.vscode/
+.DS_Store

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Mocha Tests" time="2.564" tests="1" failures="0">
-  <testsuite name="Root Suite" timestamp="2025-12-18T06:30:08" tests="0" file="cypress\e2e\API\CRUD_user.cy.js" time="0.000" failures="0">
-  </testsuite>
-  <testsuite name="PlaceOrderApi" timestamp="2025-12-18T06:30:08" tests="1" time="2.560" failures="0">
-    <testcase name="PlaceOrderApi PlaceOrder Using API" time="2.520" classname="PlaceOrder Using API">
-    </testcase>
-  </testsuite>
-</testsuites>
