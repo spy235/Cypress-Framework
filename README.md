@@ -1,9 +1,5 @@
 # Cypress Test Framework — Professional Automation Suite ✅
 
-**Purpose**
-
-This repository contains an automated test framework built with **Cypress**. It is structured to support end-to-end UI tests, API tests, and hybrid flows. The goal is to provide a clean, maintainable test suite that demonstrates strong automation engineering practices and is easy for interviewers and recruiters to evaluate.
-
 ---
 
 ## Table of Contents
@@ -21,16 +17,69 @@ This repository contains an automated test framework built with **Cypress**. It 
 
 ---
 
-## Project Overview 🔍
+## Project Overview 🔧
 
-This repository demonstrates a practical Cypress test framework used to validate both front-end and API endpoints. It focuses on:
+This repository is an automation test framework focused on end-to-end and API validation using **Node.js** and **Cypress (v15.8.0)**. The design emphasizes maintainability, repeatability, and CI-readiness — ideal for production usage or as a technical portfolio for recruiters.
 
-- Clear test organization and readable test cases
-- Reusable page objects and helper utilities
-- Robust reporting and CI integration
-- Realistic fixture-based test data
+Key aspects and technologies used:
 
-This is suited as an interview portfolio project or a starting point for production-quality test automation.
+- Core platform
+
+  - Node.js + npm
+  - Cypress ^15.8.0 (E2E runner, Mocha test syntax)
+  - `specPattern` configured in `cypress.config.js` to discover specs under `cypress/e2e/`
+
+- Reporting & aggregation
+
+  - `cypress-mochawesome-reporter` for rich HTML reports
+  - `mocha-junit-reporter` + `cypress-multi-reporters` to generate JUnit XML for CI
+  - `junit-report-merger` used to merge JUnit files when running parallel jobs
+
+- Plugins & helpers
+
+  - `cypress-cucumber-preprocessor` configured (legacy) for optional BDD-style feature files
+  - `cypress-failed-log` and `cypress-terminal-report` for actionable debug logs
+  - `cypress-xpath` for XPath selector support where needed
+  - `@shelex/cypress-allure-plugin` (Allure integration, optional)
+
+- Test organization & patterns
+
+  - Tests separated by domain under `cypress/e2e/` (e.g., `API/`, `HYBRID/`)
+  - Page Object pattern in `cypress/support/pageObjects/` for reusable UI interactions
+  - Custom commands in `cypress/support/commands.js` and reusable hooks in `cypress/support/hooks/`
+  - API helpers under `cypress/support/helpers/apiHelpers/` (request abstraction and assertions)
+
+- Test data & utilities
+
+  - Fixtures in `cypress/fixtures/` (static payloads like `loginData.json` and `productsData.json`)
+  - Dynamic test data via `@faker-js/faker` and `cypress/utils/fakeData.js`
+  - `cypress.config.js` exposes `env` values (e.g., `apiBaseUrl`) and custom node tasks (e.g., `writeFixture`, `deleteFakeData`)
+
+- CI / Containerization
+
+  - `DockerFile` provided to run tests in a controlled containerized environment
+  - `JenkinsFile` demonstrates a pipeline that installs deps, runs tests, and archives `results/`
+  - Artifacts saved to `results/` (Mochawesome HTML, JUnit XML) for easy inspection in CI
+
+- Logging & operational
+  - `winston` for structured logging where needed
+  - Screenshots and videos configured via Cypress settings (`screenshotOnRunFailure`, `video` setting)
+
+Where to look for the technical pieces:
+
+- `cypress.config.js` — runner config, reporter config, custom tasks, env keys
+- `package.json` — exact scripts and dependency versions
+- `reporter-config.json` — reporter options (Mochawesome / multi-reporter settings)
+- `results/` — generated test artifacts (HTML, XML)
+
+Best practices followed:
+
+- Tests are designed to be idempotent and deterministic
+- Use Page Objects and helper modules to avoid duplication
+- CI jobs are expected to publish `results/` as artifacts for triage
+- Use `npx cypress run --spec` and spec globs/tags to execute specific subsets in CI
+
+This section is intentionally technical and concise — reviewers should get a clear picture of the technologies used, where configuration and helpers live, and how the project behaves in local and CI environments.
 
 ---
 
@@ -161,6 +210,7 @@ describe("Checkout flow", () => {
   });
 });
 ```
+
 ---
 
 ## Reporting & Test Artifacts 📊
@@ -188,6 +238,7 @@ describe("Checkout flow", () => {
 - Check `results/junit/*.xml` and `results/cypress-mochawesome-reporter/index.html` for test failure details.
 
 ---
+
 **Quick evaluation checklist:**
 
 - Clear separation of test types (UI, API, Hybrid) ✅
