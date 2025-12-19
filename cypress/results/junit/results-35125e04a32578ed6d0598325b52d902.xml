@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.430" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2025-12-18T12:49:39" tests="0" file="cypress\e2e\features\api\CRUD_user.feature" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="User account lifecycle via API" timestamp="2025-12-18T12:49:39" tests="1" time="0.426" failures="1">
+    <testcase name="User account lifecycle via API Create, login and delete a user" time="0.000" classname="Create, login and delete a user">
+      <failure message="Step implementation missing for: a new user is generated" type="Error"><![CDATA[Error: Step implementation missing for: a new user is generated
+    at Context.resolveAndRunStepDefinition (node_modules/cypress-cucumber-preprocessor/lib/resolveStepDefinition.js:199:0)
+    at Context.eval (node_modules/cypress-cucumber-preprocessor/lib/createTestFromScenario.js:27:0)
+    at getRet (https://www.automationexercise.com/__cypress/runner/cypress_runner.js:122649:20)
+    at tryCatcher (https://www.automationexercise.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise.attempt.Promise.try (https://www.automationexercise.com/__cypress/runner/cypress_runner.js:4285:29)
+    at Context.thenFn (https://www.automationexercise.com/__cypress/runner/cypress_runner.js:122660:66)
+    at Context.then (https://www.automationexercise.com/__cypress/runner/cypress_runner.js:122911:21)
+    at wrapped (https://www.automationexercise.com/__cypress/runner/cypress_runner.js:146023:19)
+    at <unknown> (https://www.automationexercise.com/__cypress/runner/cypress_runner.js:151992:15)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="44.685" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-12-18T13:04:39" tests="0" file="cypress\e2e\HYBRID\placeorder.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Place Order Flow" timestamp="2025-12-18T13:04:39" tests="1" time="44.676" failures="0">
+    <testcase name="Place Order Flow should place order successfully" time="44.502" classname="should place order successfully">
+    </testcase>
+  </testsuite>
+</testsuites>

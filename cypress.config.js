@@ -1,18 +1,29 @@
 const { defineConfig } = require("cypress");
-import fs from "fs";
-import path from "path";
+const fs = require("fs");
+const path = require("path");
+
+// Mochawesome reporter
+const mochawesome = require("cypress-mochawesome-reporter/plugin");
+
 module.exports = defineConfig({
-  reporter: 'cypress-multi-reporters',
-  reporter: 'cypress-multi-reporters',
+  video: false,
+  screenshotOnRunFailure: true,
+  retries: {
+    runMode: 1,
+    openMode: 0
+  },
+  reporter: "cypress-multi-reporters",
   reporterOptions: {
-    configFile: 'reporter-config.json',
+    configFile: "reporter-config.json",
   },
 
   e2e: {
-    setupNodeEvents(on, config) {
-      require('cypress-mochawesome-reporter/plugin')(on);
+    baseUrl: "https://www.automationexercise.com/",
+    specPattern: "cypress/e2e/**/*.js", 
+    async setupNodeEvents(on, config) {
+      mochawesome(on);
 
-      // implement node event listeners here
+      // 4️⃣ Custom tasks
       on("task", {
         writeFixture({ fileName, data }) {
           const fixturesDir = path.resolve("cypress/fixtures");
@@ -36,11 +47,12 @@ module.exports = defineConfig({
           return null;
         },
       });
+
+      return config;
     },
-    env:{
-      apiBaseUrl:"https://automationexercise.com"
+
+    env: {
+      apiBaseUrl: "https://automationexercise.com",
     },
-    specPattern: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",
-    baseUrl: "https://www.automationexercise.com/",
   },
 });

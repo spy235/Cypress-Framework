@@ -1,0 +1,31 @@
+name: Cypress E2E Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Cypress Docker Image
+        run: docker build -t cypress-tests .
+
+      - name: Run Cypress
+        run: |
+          docker run \
+            -e CYPRESS_baseUrl=https://qa.myapp.com \
+            cypress-tests
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/screenshots
+            cypress/videos
