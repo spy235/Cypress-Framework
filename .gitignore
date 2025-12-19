@@ -7,7 +7,7 @@ cypress/videos/
 logs/
 
 # Temporary / results folder
-.results/
+results/
 
 # Node modules
 node_modules/
