@@ -19,16 +19,16 @@ pipeline {
         }
 
         stage('Publish Results') {
-            steps {
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'results/cypress-mochawesome-reporter',
-                    reportFiles: 'index.html',
-                    reportName: 'Cypress Test Report'
-                ])
-            }
+    steps {
+        publishHTML([
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: 'cypress/results/cypress-mochawesome-reporter',
+            reportFiles: 'index.html',
+            reportName: 'Cypress Mochawesome Report'
+        ])
+    }
         }
     }
 }
