@@ -6,21 +6,15 @@ pipeline {
   }
 
   stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
-    }
-
     stage('Install Dependencies') {
       steps {
-        sh 'npm ci'
+        bat 'npm ci'
       }
     }
 
     stage('Run Cypress Tests') {
       steps {
-        sh 'npx cypress run --browser chrome'
+        bat 'npm run cypress:edge'
       }
     }
   }

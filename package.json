@@ -2,7 +2,7 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "cypress:chrome": "cypress run --browser chrome",
+    "cypress:edge": "cypress run --browser edge",
     "cypress:headless": "cypress run --headless",
     "cypress:report": "cypress run || true"
   },
@@ -11,7 +11,7 @@
     "nonGlobalStepBaseDir": "cypress/e2e/features"
   },
   "dependencies": {
-    "cypress": "^15.8.0",
+    "cypress": "^15.8.1",
     "cypress-mochawesome-reporter": "^4.0.2",
     "cypress-multi-reporters": "^2.0.5",
     "fs": "^0.0.1-security",
