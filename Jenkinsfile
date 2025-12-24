@@ -1,34 +1,36 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJS 18'  // Assuming NodeJS tool is configured in Jenkins
-    }
-
     stages {
-        stage('Install Dependencies') {
+        stage('Build Docker Image') {
             steps {
-                bat 'npm install'
+                bat 'docker build -t cypress-tests .'
             }
         }
 
         stage('Run Cypress Tests') {
             steps {
-                bat 'npm run cypress:edge'
+                bat 'docker run --rm -v %cd%\\results:C:\\app\\results cypress-tests'
             }
         }
 
         stage('Publish Results') {
-    steps {
-        publishHTML([
-            allowMissing: false,
-            alwaysLinkToLastBuild: true,
-            keepAll: true,
-            reportDir: 'cypress/results/cypress-mochawesome-reporter',
-            reportFiles: 'index.html',
-            reportName: 'Cypress Mochawesome Report'
-        ])
+            steps {
+                publishHTML([
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'results/cypress-mochawesome-reporter',
+                    reportFiles: 'index.html',
+                    reportName: 'Cypress Mochawesome Report'
+                ])
+            }
+        }
     }
+
+    post {
+        always {
+            bat 'docker system prune -f'
         }
     }
 }

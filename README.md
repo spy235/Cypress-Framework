@@ -225,9 +225,37 @@ describe("Checkout flow", () => {
 
 ## CI / Docker / Jenkins ⚙️
 
-- `JenkinsFile` contains a reference pipeline to install dependencies, run tests, and archive results.
-- `DockerFile` can be used to run a repeatable containerized test job (useful for scaling and reproducible CI runs).
-- Ensure the CI agent has the required browsers and dependencies or use Docker for consistent environments.
+This project includes a complete CI/CD pipeline using Jenkins and Docker for automated testing.
+
+### Prerequisites
+- Jenkins with Docker plugin installed and Docker daemon running on the agent.
+- Git repository accessible to Jenkins.
+
+### Jenkins Pipeline
+The `Jenkinsfile` defines a pipeline that:
+1. Checks out the code from Git.
+2. Builds a Docker image using the `Dockerfile`.
+3. Runs Cypress tests inside the container (currently configured to use Edge browser via `npm run cypress:edge`).
+4. Mounts the `results/` directory to persist test artifacts.
+5. Publishes the Mochawesome HTML report in Jenkins.
+6. Cleans up Docker resources.
+
+### Dockerfile Details
+The `Dockerfile` is based on `cypress/included:15.8.1` and runs `npm run cypress:edge` by default.
+
+**Important:** The Cypress Docker image does not include Microsoft Edge. To run successfully in Docker, modify the `CMD` in the `Dockerfile` or the script in `package.json` to use a supported browser like Chrome or Electron.
+
+Example modifications:
+- For Chrome: Change `CMD ["npm", "run", "cypress:edge"]` to `CMD ["npx", "cypress", "run", "--headless", "--browser", "chrome"]`
+- Or update `package.json`: `"cypress:edge": "cypress run --browser chrome"`
+
+### Running Locally with Docker
+1. Build the image: `docker build -t cypress-tests .`
+2. Run tests: `docker run --rm -v $(pwd)/results:/app/results cypress-tests`
+3. View reports in `results/cypress-mochawesome-reporter/index.html`.
+
+### Alternative: Run Without Docker
+If Docker is not available, use the Node.js-based pipeline (comment out Docker stages in `Jenkinsfile` and enable the NodeJS tool and npm stages).
 
 ---
 
